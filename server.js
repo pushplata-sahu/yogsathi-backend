@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 
-// ✅ Final CORS setup — allow localhost & Vercel domain
+// ✅ CORS fix: allow frontend (localhost + Vercel)
 const allowedOrigins = [
   "http://localhost:3000",
   "https://yogsathi.vercel.app"
@@ -12,14 +12,26 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
-    }
+    if (!origin) return callback(null, true); // allow Postman/cURL
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS"));
   },
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
+
+app.use(express.json());
+
+// ✅ MongoDB
+mongoose.connect("your-mongodb-url")
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB error:", err));
+
+// ✅ API routes
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/reports", require("./routes/report"));
+app.use("/api/predictor", require("./routes/predictor"));
+
+// ✅ Start server
+app.listen(5000, () => console.log("🚀 Server running at http://localhost:5000"));
