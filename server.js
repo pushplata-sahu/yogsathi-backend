@@ -4,11 +4,14 @@ const cors = require("cors");
 
 const app = express();
 
-// ✅ Manual CORS headers fix — important!
+// ✅ CORS fix — allow all for now (you can restrict later)
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // 🟡 You can replace * with your frontend URL for security
+  res.header("Access-Control-Allow-Origin", "*"); // 🔥 Use "*" for testing. Replace with frontend URL later
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
   next();
 });
 
