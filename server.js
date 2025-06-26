@@ -12,7 +12,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow Postman/cURL
+    if (!origin) return callback(null, true); // allow Postman/cURL etc.
     if (allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error("Not allowed by CORS"));
   },
@@ -21,10 +21,18 @@ app.use(cors({
   allowedHeaders: ["Content-Type"],
 }));
 
+// 🛠 Manually set CORS headers (extra fix)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // or specific origin for production
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
+
 app.use(express.json());
 
-// ✅ MongoDB
-mongoose.connect("your-mongodb-url")
+// ✅ MongoDB connection
+mongoose.connect("mongodb+srv://Pushplata:18062005@cluster0.hzufexw.mongodb.net/yogsathi?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error:", err));
 
