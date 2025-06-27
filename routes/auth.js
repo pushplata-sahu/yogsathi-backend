@@ -43,7 +43,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// ✅ Login logic
+// ✅ Login logic (Fixed compare error)
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -51,6 +51,11 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       return res.json({ success: false, message: "User not found" });
+    }
+
+    // ✅ Fix for 'data and hash arguments required'
+    if (!password || !user.password) {
+      return res.status(400).json({ success: false, message: "Missing credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
