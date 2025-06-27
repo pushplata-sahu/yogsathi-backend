@@ -1,9 +1,19 @@
-[
-  { "date": "2025-06-20", "yoga_minutes": 30, "mood": "Calm", "energy": "High" },
-  { "date": "2025-06-21", "yoga_minutes": 25, "mood": "Focused", "energy": "Moderate" },
-  { "date": "2025-06-22", "yoga_minutes": 0,  "mood": "Tired", "energy": "Low" },
-  { "date": "2025-06-23", "yoga_minutes": 20, "mood": "Balanced", "energy": "High" },
-  { "date": "2025-06-24", "yoga_minutes": 15, "mood": "Calm", "energy": "Moderate" },
-  { "date": "2025-06-25", "yoga_minutes": 10, "mood": "Okay", "energy": "Low" },
-  { "date": "2025-06-26", "yoga_minutes": 18, "mood": "Focused", "energy": "Moderate" }
-]
+{
+  "success": true,
+  "summary": {
+    "totalMinutes": 210,
+    "avg": 30,
+    "streak": 5,
+    "last7": [
+      { "date": "2025-06-20", "yoga_minutes": 30, "mood": "Calm", "energy": "High" },
+      { "date": "2025-06-21", "yoga_minutes": 25, "mood": "Focused", "energy": "Moderate" },
+      { "date": "2025-06-22", "yoga_minutes": 0,  "mood": "Tired", "energy": "Low" },
+      { "date": "2025-06-23", "yoga_minutes": 20, "mood": "Balanced", "energy": "High" },
+      { "date": "2025-06-24", "yoga_minutes": 15, "mood": "Calm", "energy": "Moderate" },
+      { "date": "2025-06-25", "yoga_minutes": 10, "mood": "Okay", "energy": "Low" },
+      { "date": "2025-06-26", "yoga_minutes": 18, "mood": "Focused", "energy": "Moderate" }
+    ],
+    "challengeAttempted": true,
+    "rewards": 3
+  }
+}

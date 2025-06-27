@@ -11,13 +11,18 @@ function getWeeklySummary() {
   const totalMinutes = last7.reduce((sum, d) => sum + d.yoga_minutes, 0);
   const avg = totalMinutes / last7.length;
 
-  const streak = last7.every((d) => d.yoga_minutes > 0);
+  const streak = last7.reduce((s, d) => (d.yoga_minutes > 0 ? s + 1 : 0), 0);
+
+  const challengeAttempted = true; // Or calculate based on logs if needed
+  const rewards = streak >= 5 ? 3 : streak >= 3 ? 1 : 0;
 
   return {
     totalMinutes,
     avg,
     streak,
     last7,
+    challengeAttempted,
+    rewards,
   };
 }
 
