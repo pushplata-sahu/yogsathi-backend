@@ -8,9 +8,12 @@ const app = express();
 // ✅ CORS setup (FINAL)
 const corsOptions = {
   origin: [
-    'https://solo-sparks-omega.vercel.app', // ✅ Vercel frontend URL
-    'http://localhost:3000'                 // ✅ Local dev
-  ],
+  'https://yogsathi-oghv.vercel.app',     // ✅ YogSathi live frontend
+  'https://solo-sparks-omega.vercel.app', // ✅ Solo Sparks frontend
+  'http://localhost:3000',                // ✅ Local dev (optional)
+  'http://localhost:3001'                 // ✅ Alternate local port
+],
+
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
