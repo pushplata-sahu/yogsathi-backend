@@ -8,15 +8,15 @@ const app = express();
 // ✅ CORS setup (FINAL)
 const corsOptions = {
   origin: [
-  'https://yogsathi-oghv.vercel.app',     // ✅ YogSathi live frontend
-  'https://solo-sparks-omega.vercel.app', // ✅ Solo Sparks frontend
-  'http://localhost:3000',                // ✅ Local dev (optional)
-  'http://localhost:3001'                 // ✅ Alternate local port
-],
-
+    'https://yogsathi-oghv.vercel.app',     // ✅ YogSathi live frontend
+    'https://solo-sparks-omega.vercel.app', // ✅ Solo Sparks frontend
+    'http://localhost:3000',                // ✅ Local dev (optional)
+    'http://localhost:3001'                 // ✅ Alternate local port
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 app.use(cors(corsOptions)); // ✅ Apply CORS
 app.use(express.json());
 
@@ -32,6 +32,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/reports", require("./routes/report"));
 app.use("/api/predictor", require("./routes/predictor"));
+app.use("/api/contact", require("./routes/contact")); // ✅ ✅ ✅ ADD THIS LINE
 
 // ✅ Test Route (to verify live status)
 app.get("/", (req, res) => {
