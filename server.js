@@ -7,13 +7,11 @@ const app = express();
 
 // ✅ CORS setup
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Development ke liye localhost, production ke liye environment variable
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
-
-app.use(cors(corsOptions)); // CORS ko specify karke use karo
-
+app.use(cors(corsOptions)); // Apply CORS
 app.use(express.json());
 
 // ✅ MongoDB Connection
@@ -29,7 +27,13 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/reports", require("./routes/report"));
 app.use("/api/predictor", require("./routes/predictor"));
 
-// ✅ Start Server
-app.listen(5000, () => {
-  console.log("🚀 Server running at http://localhost:5000");
+// ✅ Test Route (to verify live status)
+app.get("/", (req, res) => {
+  res.send("✅ YogSathi Backend Live!");
+});
+
+// ✅ Start Server (dynamic PORT for Railway)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
