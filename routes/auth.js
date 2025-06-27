@@ -3,18 +3,18 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
-// ✅ Test Route
+// ✅ Test route
 router.get("/test", (req, res) => {
   res.json({ success: true, message: "✅ Auth route working perfectly!" });
 });
 
-// ✅ Signup logic
+// ✅ Signup route
 router.post("/signup", async (req, res) => {
   const { name, email, password, phone } = req.body;
 
   try {
-    const existing = await User.findOne({ email });
-    if (existing) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.json({ success: false, message: "User already exists" });
     }
 
@@ -43,7 +43,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// ✅ Login logic (Fixed compare error)
+// ✅ Login route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -53,7 +53,6 @@ router.post("/login", async (req, res) => {
       return res.json({ success: false, message: "User not found" });
     }
 
-    // ✅ Fix for 'data and hash arguments required'
     if (!password || !user.password) {
       return res.status(400).json({ success: false, message: "Missing credentials" });
     }

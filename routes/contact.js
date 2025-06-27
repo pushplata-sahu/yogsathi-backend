@@ -1,20 +1,33 @@
 const express = require("express");
 const router = express.Router();
+const Contact = require("../models/contact"); // ✅ Ensure this path is correct
 
-// 🔧 yahan 'user.js' import kar rahe hain as Contact
-const Contact = require("../models/user");
-
+// 🔹 POST /api/contact
 router.post("/", async (req, res) => {
+  const { name, phone, email, message } = req.body;
+
+  // 🔸 Validate all fields
+  if (!name || !phone || !email || !message) {
+    return res.status(400).json({
+      success: false,
+      message: "All fields are required",
+    });
+  }
+
   try {
-    const { name, phone, email, message } = req.body;
+    const newContact = new Contact({ name, phone, email, message });
+    await newContact.save();
 
-    const newEntry = new Contact({ name, phone, email, message });
-    await newEntry.save();
-
-    res.status(200).json({ success: true, message: "Contact saved!" });
-  } catch (error) {
-    console.error("❌ Contact error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(200).json({
+      success: true,
+      message: "✅ Contact submitted successfully!",
+    });
+  } catch (err) {
+    console.error("❌ Contact form error:", err);
+    res.status(500).json({
+      success: false,
+      message: "Server error, please try again later.",
+    });
   }
 });
 
