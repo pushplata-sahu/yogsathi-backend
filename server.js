@@ -5,13 +5,16 @@ require("dotenv").config(); // ✅ Load environment variables
 
 const app = express();
 
-// ✅ CORS setup
+// ✅ CORS setup (FINAL)
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    'https://solo-sparks-omega.vercel.app', // ✅ Vercel frontend URL
+    'http://localhost:3000'                 // ✅ Local dev
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
-app.use(cors(corsOptions)); // Apply CORS
+app.use(cors(corsOptions)); // ✅ Apply CORS
 app.use(express.json());
 
 // ✅ MongoDB Connection
