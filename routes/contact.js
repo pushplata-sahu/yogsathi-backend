@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Contact = require("../models/Contact");
+
+// 🔧 yahan 'user.js' import kar rahe hain as Contact
+const Contact = require("../models/user");
 
 router.post("/", async (req, res) => {
   try {

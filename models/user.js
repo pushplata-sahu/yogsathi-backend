@@ -8,4 +8,5 @@ const contactSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+// 👇 You can still export it as 'Contact'
 module.exports = mongoose.model("Contact", contactSchema);
